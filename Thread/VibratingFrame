@@ -1,0 +1,65 @@
+package ex5;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class VibratingFrame extends JFrame {
+	private JLabel jl = new JLabel("123");
+	
+	public VibratingFrame() {
+		super("진동하는 프레임");
+		
+		add(jl);
+//		jl.setLocation(150, 150);
+		this.setSize(300, 300);
+		this.setLocation(100, 100);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+		
+		VibratingThread th = new VibratingThread(this);
+		th.start();
+		
+	}
+	
+	class VibratingThread extends Thread {
+		private Component comp;
+		public VibratingThread(Component comp) {
+			this.comp = comp;
+			
+		}
+		
+		@Override
+		public void run() {
+			Random r = new Random();
+			int x = comp.getX();			// 진동 시키고자하는 컴포넌트 x의 시작위치
+			int y = comp.getY();
+			
+			while(true) {
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					return;
+				}
+				
+				int sign = (r.nextBoolean()? 1:-1);
+				int tempX = x + r.nextInt(5) * sign;
+				sign = (r.nextBoolean()? 1:-1);
+				int tempY = y + r.nextInt(5) * sign;
+				
+				int sign1 = (r.nextBoolean()? 1:-1);
+				int tempX1 = x + r.nextInt(100) * sign1;
+				sign1 = (r.nextBoolean()? 1:-1);
+				int tempY1 = y + r.nextInt(100) * sign1;
+				
+				comp.setLocation(tempX, tempY);
+				jl.setLocation(tempX1, tempY1);
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		new VibratingFrame();
+	}
+}
