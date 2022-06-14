@@ -1,0 +1,135 @@
+package board;
+
+import java.sql.*;
+
+public class ConnectionTest {
+	static Connection con = null;
+	
+	public static void main(String[] args) {
+		ConnectionTest ct = new ConnectionTest();
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url = "jdbc:mysql://localhost/board";
+			con = DriverManager.getConnection(url, "root", "1234");
+//			System.out.println("Connection o");
+			insertBoard();
+			selectOne();
+			updateBoard();
+			deleteBoard();
+		} catch (Exception e) {
+			System.out.println("Connection x");
+		} finally {
+			try {
+				if (con != null && !con.isClosed()) {
+					con.close();
+				}
+			} catch (Exception e2) {
+
+			}
+		}
+	}
+	
+	public static void insertBoard() {
+		String sql = "insert into board values(?,?,?,?,?,?)";
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, null);
+			pstmt.setString(2, "java&mysql connection");
+			pstmt.setString(3, "1111");
+			pstmt.setString(4, "비공개");
+			pstmt.setString(5, "kim");
+			pstmt.setString(6, "data1");
+			int result = pstmt.executeUpdate();
+			if(result == 1) {
+				System.out.println("insert o");
+			}
+		} catch (SQLException e) {
+			System.out.println("insert x");
+		}
+		finally {
+			try {
+				if (con != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e2) {
+
+			}
+		}
+		
+	}
+	
+	public static void selectOne() {
+		String sql = "select * from board";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				System.out.println("ID : " + rs.getString(1));
+				System.out.println("boardTitle : " + rs.getString(2));
+				System.out.println("boardPassword : " + rs.getString(3));
+				System.out.println("comboPublic : " + rs.getString(4));
+				System.out.println("writerName : " + rs.getString(5));
+				System.out.println("textContent : " + rs.getString(6));
+			
+			}
+		} catch (SQLException e) {
+			System.out.println("select x");
+		}
+		finally {
+			try {
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+	
+	public static void updateBoard() {
+		String sql = "update board set boardTitle = ?, boardPassword = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "mysql");
+			pstmt.setString(2, "9999");
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("update x");
+		}
+		finally {
+			try {
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+	
+	public static void deleteBoard() {
+		String sql = "delete from board where ID = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sql);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("delete x");
+		}
+		finally {
+			try {
+				if (pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			} catch (Exception e2) {
+				
+			}
+		}
+	}
+}
