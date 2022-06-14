@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h2> 회원가입 정보 </h2>
+<%
+	request.setCharacterEncoding("UTF-8");
+	String name = request.getParameter("name");
+	out.println(name + "<br>");
+	
+	String ID = request.getParameter("ID");
+	out.println(ID + "<br>");
+	
+	String jumin = request.getParameter("jumin_1") + "-" + request.getParameter("jumin_2");
+	out.println(jumin + "<br>");
+	
+	String email = request.getParameter("e-mail");
+	if(request.getParameter("e-mail_dns").trim() == "") {
+		email = email + "@" + request.getParameter("e-mail_arr");
+	}else {
+		email = email + "@" + request.getParameter("e-mail_dns");
+	}
+	out.println(email + "<br>");
+	
+	
+%>
+</body>
+</html>
