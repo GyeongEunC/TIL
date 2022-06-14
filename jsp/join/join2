@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action="join.jsp" method="post">
+	이름 <input type = "text" name = "name"><br>
+	ID <input type = "text" name = "ID"><br>
+	<label> 주민등록번호 </label> <span style = "color:red;"> * </span>
+		<input type = "text" name = "jumin_1" value = ""> - 
+		<input type = "text" name = "jumin_2" value = "">
+		<br>
+	
+	<label> 이메일 주소 </label> <span style = "color:red;"> * </span>
+		<input type = "text" name = "e-mail" > @
+		<input type = "text" name = "e-mail_dns" >
+		<select name = "e-mail_arr">
+			<option value = ""> 직접입력 </option>
+			<option value = "naver.com"> naver.com </option>
+			<option value = "google.com"> google.com </option>
+			<option value = "daum.net"> daum.net </option>
+		</select>
+		<br>
+	
+	<label> 직업 </label>
+	<select name = "job" size = "1">
+		<option value=""> 선택하세요 </option>
+		<option value="학생"> 학생 </option>
+		<option value="언론인"> 언론인 </option>
+		<option value="IT개발자"> IT개발자 </option>
+		<option value="공무원"> 공무원 </option>
+	</select>
+	<br>
+	
+	<label> mail </label>
+		<input type="radio" name="mail/sms" value="o" checked="checked" > 수신
+	    <input type="radio" name="mail/sms" value="x"> 수신거부
+	    <br>
+
+	
+		<input type="submit" value="회원가입">
+		<input type="reset" value="취소">
+	
+</form>
+	
+</body>
+</html>
