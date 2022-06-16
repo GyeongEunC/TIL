@@ -1,0 +1,143 @@
+package system;
+
+import java.util.*;
+
+class Seat {
+	Scanner sc = new Scanner(System.in);
+	String name;
+	int seatnumber;
+	String seat[] = new String[10];
+	String seatLevel[] = { "S", "A", "B" };
+	
+	public Seat(String name, int seatnumber) {
+		this.name = name;
+		this.seatnumber = seatnumber;
+	}
+
+	void seatInput() {
+		System.out.println("현재 좌석 상태");
+		for (int i = 0; i < seatLevel.length; i++) {
+			System.out.print(seatLevel[i] + " >> "); // 좌석 등급
+			for (int k = 0; k < seat.length; k++) {
+				seat[k] = "---  ";
+				System.out.print(seat[k]); // 좌석 갯수
+			}
+			System.out.println();
+		}
+	}
+	
+	public Seat() {
+		for (int i = 0; i < seat.length; i++) {
+			seat[i] = "---";
+		}
+	}
+	
+	boolean GetName(String name) {
+		for (int i = 0; i < seat.length; i++) {
+			if (seat[i].equals(name)) {
+				seat[i] = "---";
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void show(String name, int seatnumber) {
+		for (int k = 0; k < seat.length; k++) {
+			System.out.print(seat[k] + " ");
+		}
+	}
+
+	void set(String name, int seatnumber) {
+		seat[seatnumber-1] = name;
+	}
+}
+
+class Reservation {
+	Scanner sc;
+	String name;
+	int seatnumber;
+	String seatLevel[] = { "S", "A", "B" };
+	Seat SeatArr[] = new Seat[seatLevel.length]; // 배열 생성
+	boolean is_delete;
+
+	Reservation() {
+		sc = new Scanner(System.in);
+		
+		for (int i = 0; i < SeatArr.length; i++) {
+			SeatArr[i] = new Seat(); // 객체 생성해서 객체 배열에 대입
+		}
+	}
+
+	void insert() {
+		System.out.print("좌석구분 [S(1), A(2), B(3)] >> ");
+		int input = sc.nextInt();
+		
+		System.out.print("예약자 >> ");
+		name = sc.next();
+		System.out.print("예약할 좌석 번호 >> ");
+		seatnumber = sc.nextInt();
+		SeatArr[input - 1].set(name, seatnumber);
+		System.out.print(seatLevel[input - 1] + ">> ");
+		SeatArr[input - 1].show(name, seatnumber);
+		System.out.println();
+	}
+	void append() {
+		for (int i = 0; i < SeatArr.length; i++) { // 3번반복
+			System.out.print(seatLevel[i] + ">> "); // 각각 S, A, B 로 변환됨
+			SeatArr[i].show(name, seatnumber);
+			System.out.println();
+		}
+	}
+	void delete() {
+		is_delete = false;
+		System.out.print("예약자 >> ");
+		name = sc.next();
+		for (int j = 0; j < SeatArr.length; j++) {
+			if (SeatArr[j].GetName(name) ) {
+			is_delete = true;
+			}
+		}
+		if (is_delete) {
+			System.out.println(name + "의 예약이 취소되었습니다.");
+		}
+		else {
+			System.out.println(name + "의 예약 정보가 존재하지 않습니다.");
+		}
+	}
+}
+
+class Run {
+	Scanner sc = new Scanner(System.in);
+
+	void run() {
+		Reservation re = new Reservation();
+		while (true) {
+			System.out.print("예약:1, 조회:2, 취소:3, 종료:99 >> ");
+			int select = sc.nextInt();
+			switch (select) {
+			case 1:
+				re.insert();
+				break;
+			case 2:
+				re.append();
+				break;
+			case 3:
+				re.delete();
+				break;
+			case 99:
+				System.out.println("프로그램을 종료 합니다.");
+				return;
+			}
+		}
+	}
+}
+
+public class Exsystem {
+	public static void main(String[] args) {
+		System.out.println("자바 콘서트에 오신 여러분을 환영합니다:) ");
+//		new Seat().seatInput();
+//	존재하는 좌석 등급별로 10개씩 출력하는 문장
+		new Run().run();
+	}
+}
