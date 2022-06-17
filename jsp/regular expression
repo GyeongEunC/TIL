@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function checkFun() {
+// 	alert("why");
+	var f = document.loginForm;
+	var name = f.sname.value;
+	var regExpName = /^[a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	var pw = f.pwd.value
+	var regExpPwd =  /^(?=.*[a-z])(?=.*[_!@#$%^&*]|.*[0-9]).{4,9}$/;
+	
+	if(!regExpName.test(name)) {
+		alert("한글이나 영문으로 입력 바랍니다.");
+		f.sname.focus();
+		return false;
+	}
+	
+	//패스워드검사(영문자와 1자 이상의 숫자특수문자. 5~10)
+	if(!regExpPwd.test(pw)){
+		alert("특수문자 포함하여 5~10자로 입력 바랍니다.");
+		f.pwd.focus();
+		return;
+		}	
+	
+}
+</script>
+</head>
+<body>
+<form name = "loginForm" action="" method="post" onsubmit="return checkFun()">
+닉네임 (한글 or 영문) : <br>
+<input type = "text" name = "sname"><br>
+
+비밀번호 (특수문자 포함하여 5~10자리) <br>
+<input type = "password" name = "pwd"><br><br>
+
+<input type = "submit" value="신청하기">
+</form>
+</body>
+</html>
