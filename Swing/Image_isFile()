@@ -1,0 +1,91 @@
+package Image_S;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+import java.io.*;
+
+public class ImageGallery extends JFrame {
+	private RadioPanel radioPanel = new RadioPanel();
+	private JLabel imageLabel = new JLabel();
+	private Vector<ImageIcon> imageVector = new Vector<ImageIcon>();
+	
+	public ImageGallery() {
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		Container c = getContentPane();
+		c.setLayout(new BorderLayout());
+		
+		loadImages("images");
+		c.add(radioPanel, BorderLayout.NORTH);
+		c.add(imageLabel, BorderLayout.CENTER);
+		imageLabel.setIcon(imageVector.get(0));		// 로딩한 이미지 중 첫 이미지
+		
+		this.setTitle("라디오버튼으로 이미지 넘기기");
+		this.setSize(400, 400);
+		this.setVisible(true);
+		
+		imageLabel.addMouseListener(new MyMouseListener(0));	// 0번 이미지부터 시작
+		
+	}
+	
+	public void loadImages(String path) {
+		File file = new File(path);
+		File files[] = file.listFiles();
+		for(File f : files) {		// path 밑에 있는 모든 파일명 알아내기
+			if(f.isFile()) {		// 파일인 경우에만 가져옴
+				ImageIcon icon = new ImageIcon(f.getPath());
+				imageVector.add(icon);
+			}
+		}
+	}
+	
+	class MyMouseListener extends MouseAdapter {
+		private int index;
+		
+		public MyMouseListener(int StartIndex) {
+			index = StartIndex;
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if(radioPanel.isLeft()) {		// 이미지 왼쪽으로 넘기기
+				index++;
+				index = index % imageVector.size();		// 이미지 갯수만큼 반복
+				imageLabel.setIcon(imageVector.get(index));
+			}
+			else {
+				index--;
+				if(index == -1) {
+					index = imageVector.size()-1; 		// 인덱스번호가 -1일때 다시 마지막 번호로 돌아가
+				}
+				imageLabel.setIcon(imageVector.get(index));
+			}
+			
+		}
+	}
+	
+	class RadioPanel extends JPanel {
+		private JRadioButton left_Radio = new JRadioButton("left");
+		private JRadioButton right_Radio = new JRadioButton("right");
+		
+		public RadioPanel() {
+			ButtonGroup g = new ButtonGroup();
+			g.add(left_Radio);
+			g.add(right_Radio);
+			
+			add(left_Radio);
+			add(right_Radio);
+			left_Radio.setSelected(true);
+		}
+		public boolean isLeft() {
+			return left_Radio.isSelected();
+		}
+	}
+	
+	
+
+	public static void main(String[] args) {
+		new ImageGallery();
+	}
+}
