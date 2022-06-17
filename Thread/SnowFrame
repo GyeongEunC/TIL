@@ -1,0 +1,95 @@
+package Snow;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
+
+public class SnowFrame extends JFrame {
+	
+	public SnowFrame() {
+		setContentPane(new SnowPanel());
+		this.setTitle("눈내리는 성");
+		this.setSize(400, 400);
+		this.setResizable(false);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+	}
+	
+	class SnowPanel extends JPanel {
+		private ImageIcon icon = new ImageIcon("images/back.jpg");
+		private Image img = icon.getImage();
+		private final int Snows = 50;
+		int Snows_Size = 0;
+		private Vector<Point> snowVector = new Vector<Point>();		// 눈송이의 왼쪽 좌표 point
+		
+		public SnowPanel() {
+			this.addComponentListener(new ComponentAdapter() {
+				@Override
+				public void componentResized(ComponentEvent e) {	// 패널의 위치와 크기가 정해지면 그때 눈을 만듬
+					addSnow();
+					new SnowThread().start();						// 눈내리는 쓰레드를 시작
+				}
+			});
+		}
+		
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);	// 배경 이미지 그림
+			drawSnow(g);
+		}
+		
+		public void addSnow() {
+			for (int i = 0; i < Snows; i++) {
+				Point p = new Point((int)(Math.random()*getWidth()),(int)(Math.random()*getHeight()));
+				snowVector.add(p);
+			}
+		}
+		
+		public void drawSnow(Graphics g) {
+			g.setColor(Color.white);
+			Snows_Size = (int)(Math.random()*15+5);
+			for(int i = 0; i < snowVector.size(); i++) {
+				Point p = snowVector.get(i);
+				g.fillOval(p.x, p.y, Snows_Size, Snows_Size);
+			}
+		}
+		
+		public void ChangeSnowPositon() {
+			for(int i = 0; i < Snows; i++) {
+				Point p = snowVector.get(i);
+				int xDir = Math.random() > 0.5 ? 1 : -1;		// xDir이 1이면 오른쪽 아님 반대
+				int offsetX = (int)(Math.random()*3)*xDir;		// x축으로 이도하는 최대 거리는 3
+				int offsetY = (int)(Math.random()*7);
+				p.x = p.x + offsetX;
+				if(p.x < 0)
+					p.x = 0;
+				p.y = p.y + offsetY;
+				if(p.y > getHeight()) {							// 눈이 패널(400)을 벗어나면 다시 위로 돌아가
+					p.x = (int)(Math.random()*getWidth());
+					p.y = 5;
+				}
+			}
+		}
+		
+		class SnowThread extends Thread {
+			@Override
+			public void run() {
+				while(true) {
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						return;
+					}
+					ChangeSnowPositon();						// 눈의 위치 재 정의
+					SnowPanel.this.repaint();					// 설정한 위치에 눈이 그려져
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		new SnowFrame();
+	}
+}
