@@ -1,0 +1,33 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> 세션 생성하기 </h1>
+<%
+	
+// 	session.setMaxInactiveInterval(60);
+// 	int s_time = session.getMaxInactiveInterval() / 60;
+// 	out.println("세션의 유효시간 : [" + s_time + "분 ] <br>");
+
+	String u_id = request.getParameter("id");
+	String u_pw = request.getParameter("pw");
+	
+	if(u_id.equals("apple") && u_pw.equals("0000")) {
+		session.setAttribute("memberID", u_id);
+		session.setAttribute("memberPW", u_pw);
+		
+		out.println("new session create success" + "<br>");
+		out.println("["+ u_id +"]" +"님 반갑습니다.");
+	} else {
+		out.println("세션 만들기 실패");
+		out.println("다시 시도");
+	}
+
+%>
+</body>
+</html>
