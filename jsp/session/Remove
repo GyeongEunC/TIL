@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<!-- 세션을 삭제할 떄 : session 내장 객체의 removeAttribute() 메소드 or unvalidate() 메소드 사용 -->
+<!-- removeAttribute() : 개별 삭제 -->
+<!-- unvalidate() : 일괄 삭제 -->
+<body>
+--- 단일 세션 삭제 전 ---
+<br>
+<%
+
+	String u_id = (String)session.getAttribute("memberID");
+	String u_pw = (String)session.getAttribute("memberPW");
+	out.println("아이디 세션 속성값 : " + u_id + "<br>");
+	out.println("비밀번호 세션 속성값 : " + u_pw + "<br>");
+	
+	session.removeAttribute("memberID");
+// 	session.invalidate();
+%>
+<br><br>
+--- 단일 세션 삭제 후 ---
+<%
+
+	u_id = (String)session.getAttribute("memberID");
+	u_pw = (String)session.getAttribute("memberPW");
+	out.println("아이디 세션 속성값 : " + u_id + "<br>");
+	out.println("비밀번호 세션 속성값 : " + u_pw + "<br>");
+	
+%>
+</body>
+</html>
