@@ -1,0 +1,71 @@
+---------------------------------------------- .jsp ----------------------------------------------
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="NewServlet" method="get">
+
+<label> 성별 </label>
+	<input type="radio" name="gender" value="남자" checked> 남자
+	<input type="radio" name="gender" value="여자"> 여자 <br>
+
+<label> 메일 수신 여부 </label>
+	<input type="radio" name="mail" value="수신"> 수신
+	<input type="radio" name="mail" value="거부"> 거부 <br>
+	
+<label> 가입 인사 </label>
+<textarea name="text" rows="13" cols="40" ></textarea> <br>
+
+<input type="submit" value="전송">
+
+</form>
+</body>
+</html>
+
+---------------------------------------------- . java ----------------------------------------------
+package unit07;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class NewServlet
+ */
+@WebServlet("/NewServlet")
+public class NewServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		String gender = request.getParameter("gender");
+		String mail = request.getParameter("mail");
+		String text = request.getParameter("text");
+		
+		PrintWriter out = response.getWriter();
+		out.println("<html><body>");
+		out.println("성별 : ");
+		out.println(gender + "<br>");
+		out.println("메일수신여부 : ");
+		out.println(mail + "<br>");
+		out.println("가입인사 : ");
+		out.println(text + "<br>");
+		out.println("<br><a href='javascript:history.go(-1)'> 다시 </a");
+		out.println("</body></html>");
+		out.close();
+	}
+
+}
