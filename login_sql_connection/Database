@@ -1,0 +1,50 @@
+package member;
+
+import java.sql.*;
+
+public class Database {
+	Connection con = null;		// DB 연결을 관리하는 객체
+	Statement stmt = null;		// SQL문을 전달하는 객체
+	
+	public Database() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String url = "jdbc:mysql//localhost/login";
+			String id = "root";
+			String pw = "1234";
+			con = DriverManager.getConnection(url, id, pw);
+			System.out.println("DB connection o");
+			stmt = con.createStatement();
+		} catch (Exception e) {
+			System.out.println("DB connection x");
+		}
+	}
+	
+	boolean logincheck(String id, String pw) {
+		boolean flag = false;
+		String uid = id;
+		String upw = pw;
+		
+		try {
+			String sql = "select password from member where id = '" + uid + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+			int count = 0;
+			
+			while(rs.next()) {
+				if(upw.equals(rs.getString("password"))) {
+					System.out.println("login o");
+					flag = true;
+				}
+				else {
+					System.out.println("login x");
+					flag = false;
+				}
+				count++;
+			}
+		} catch (Exception e) {
+			System.out.println("login x");
+			flag = false;
+		}
+		return flag;
+	}
+}
