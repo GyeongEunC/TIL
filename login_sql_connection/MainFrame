@@ -1,0 +1,117 @@
+package member;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class MainFrame extends JFrame {
+	
+		JPanel basePanel = new JPanel(new BorderLayout());
+		JPanel CenterPanel = new JPanel(new BorderLayout());
+		JPanel westPanel = new JPanel();
+		JPanel eastPanel = new JPanel();
+		JPanel southPanel = new JPanel();
+		
+		JLabel idLabel = new JLabel("ID : ");
+		JLabel pwLabel = new JLabel("PW : ");
+		
+		JTextField id = new JTextField();
+		JPasswordField pw = new JPasswordField();
+		
+		JButton login = new JButton("login");
+		JButton join = new JButton("join");
+		JButton exit = new JButton("exit");
+		
+		Operator o = null;
+		
+	
+	MainFrame(Operator op) {
+		o = op;
+		
+		CenterPanel.setPreferredSize(new Dimension(260, 80));
+		westPanel.setPreferredSize(new Dimension(210, 75));
+		eastPanel.setPreferredSize(new Dimension(90, 75));
+		southPanel.setPreferredSize(new Dimension(290, 40));
+		
+		idLabel.setPreferredSize(new Dimension(50, 30));
+		pwLabel.setPreferredSize(new Dimension(50, 30));
+		
+		id.setPreferredSize(new Dimension(140, 30));
+		pw.setPreferredSize(new Dimension(140, 30));
+		
+		login.setPreferredSize(new Dimension(75, 63));
+		join.setPreferredSize(new Dimension(135, 25));
+		exit.setPreferredSize(new Dimension(135, 25));
+		
+		setContentPane(basePanel); 			// 기본 컨테이너로 설정
+		basePanel.add(CenterPanel, BorderLayout.CENTER);
+		basePanel.add(southPanel, BorderLayout.SOUTH);
+		CenterPanel.add(westPanel, BorderLayout.WEST);
+		CenterPanel.add(eastPanel, BorderLayout.EAST);
+		
+		westPanel.setLayout(new FlowLayout());
+		eastPanel.setLayout(new FlowLayout());
+		southPanel.setLayout(new FlowLayout());
+		
+		westPanel.add(idLabel);
+		westPanel.add(id);
+		westPanel.add(pwLabel);
+		westPanel.add(pw);
+		
+		eastPanel.add(login);
+		southPanel.add(join);
+		southPanel.add(exit);
+		
+		ButtonListener bl = new ButtonListener();
+		
+		login.addActionListener(bl);
+		join.addActionListener(bl);
+		exit.addActionListener(bl);
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(310, 150);
+		setVisible(true);
+		setResizable(false);
+		
+	}
+	class ButtonListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JButton btn = (JButton)e.getSource();
+			
+			String uid = id.getText();
+			String upw = "";
+			
+			for(int i = 0; i < pw.getPassword().length; i++) {
+				upw = upw + pw.getPassword()[i];
+			}
+			
+			if(btn.getText().equals("exit")) {
+//				System.out.println("program exit");			프로그램 동작 확인용
+				System.exit(0);
+			}
+			
+			else if(btn.getText().equals("login")) {
+				if(uid.equals("") || upw.equals("")) {
+					JOptionPane.showMessageDialog(null, "id와 pw는 공백일 수 없음.", "login 실패", JOptionPane.WARNING_MESSAGE);
+//					System.out.println("login 실패"); 		프로그램 동작 확인용
+				}
+				else if(uid != null && upw != null) {
+					if(o.db.logincheck(uid, upw)) {
+						System.out.println("login 성공");
+						JOptionPane.showConfirmDialog(null, "login 성공");
+					}
+					else
+						System.out.println("login 실패");
+						JOptionPane.showConfirmDialog(null, "login 실패");
+				}
+			}
+			
+			else if(btn.getText().equals("join")) {
+				
+			}
+			
+		}
+	}
+}
