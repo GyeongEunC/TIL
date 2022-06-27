@@ -1,0 +1,129 @@
+package phonebook;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class phonebook extends JFrame {
+	private JButton btn1 = new JButton("삽입");
+	private JButton btn2 = new JButton("조회");
+	private JButton btn3 = new JButton("검색");
+	private JButton btn4 = new JButton("삭제");
+	private JTextField tx1 = new JTextField("");
+	private JTextField tx2 = new JTextField("");
+	private JTextField tx3 = new JTextField("");
+	private JTextArea ta = new JTextArea(7, 20);
+	private JScrollPane sp = new JScrollPane(ta);
+	
+	private HashMap<String, phoneMain> people = new HashMap<String, phoneMain>();
+	
+	public phonebook() {
+		setTitle("전화번호부");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		GridLayout grid = new GridLayout(3, 2);
+		grid.setVgap(7);
+
+		Container c = getContentPane();
+		
+		JPanel jp1 = new JPanel();
+		jp1.setLayout(grid);
+		jp1.add(new JLabel(" 이름"));
+		jp1.add(tx1);
+		jp1.add(new JLabel(" 주소"));
+		jp1.add(tx2);
+		jp1.add(new JLabel(" 전화번호"));
+		jp1.add(tx3);
+		jp1.setSize(300, 150);
+		
+		JPanel jp2 = new JPanel();
+		jp2.setLayout(new GridLayout (1, 4));
+		btn1.addActionListener(new MyActionListener());
+		btn2.addActionListener(new MyActionListener());
+		btn3.addActionListener(new MyActionListener());
+		btn4.addActionListener(new MyActionListener());
+		jp2.add(btn1);
+		jp2.add(btn2);
+		jp2.add(btn3);
+		jp2.add(btn4);
+		jp2.setSize(300, 50);
+		
+		c.setLayout(null);
+		jp1.setLocation(500, 65);
+		jp2.setLocation(500, 265);
+		
+		c.add(jp1);
+		c.add(jp2);
+		
+		sp.setSize(380, 255);
+		sp.setLocation(70, 60);
+		c.add(sp);
+		
+		setSize(900, 450);
+		setVisible(true);
+	}
+	
+	class MyActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("삽입"))
+				insert();
+			else if(b.getText().equals("조회"))
+				showall();
+			else if(b.getText().equals("검색"))
+				search();
+			else delete();
+		}
+	private String name, tel, addr;
+	
+	void showall() {
+		ta.append("==========조회 결과=========="+"\n");
+
+	TreeMap<String, phoneMain> treemap = new TreeMap<String, phoneMain>(people);
+	Iterator<String> it = treemap.keySet().iterator();
+		while(it.hasNext()){
+			String k = it.next();
+			phoneMain b = people.get(k);
+
+			ta.append("이름 : "+k+", 주소 : "+b.getAddr()+", 전화번호 : "+b.getNum()+"\n");
+		}
+	}
+	
+	void insert() {
+		name = tx1.getText();
+		addr = tx2.getText();
+		tel = tx3.getText();
+		people.put(name, new phoneMain(name, addr, tel));
+		ta.append("==========삽입 완료=========="+"\n");
+		tx1.setText("");
+		tx2.setText("");
+		tx3.setText("");
+	}
+
+	void search() {
+		name = tx1.getText();
+		phoneMain p = people.get(name);
+		if (p == null)
+			ta.append("======검색 결과가 없습니다.======"+"\n");
+		else 
+			ta.append("==========검색 결과=========="+"\n");
+			addr = p.getAddr();
+			tel = p.getNum();
+			ta.append("이름 : "+name+", 주소 : "+addr+", 전화번호 : "+tel+"\n");
+			tx1.setText("");
+	}
+	
+	void delete() {
+		name = tx1.getText();
+		people.remove(name);
+		ta.append("==========삭제 완료=========="+"\n");
+		ta.append(name + "가 삭제 되었습니다."+"\n");
+		tx1.setText("");
+	}
+}
+
+	public static void main(String[] args) {
+		new phonebook();
+	}
+}
