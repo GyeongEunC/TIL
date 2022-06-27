@@ -1,0 +1,17 @@
+package phonebook;
+
+class phoneMain {
+	private String name;
+	private String addr;
+	private String num;
+
+	public phoneMain(String name, String arrd, String num) {
+		this.name = name;
+		this.addr = arrd;
+		this.num = num;
+	}
+	
+	String getName() {return name;}
+	String getAddr() {return addr;}
+	String getNum() {return num;}
+}
