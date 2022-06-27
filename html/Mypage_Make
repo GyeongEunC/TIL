@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="kor">
+ <head>
+  <title>html_make</title>
+ <style>
+ header, footer{
+	background-color:DodgerBlue;
+	text-align:center;
+	color:white;
+	padding:25px;
+ }
+ nav{
+	background-color:rgba(0,0,255,0.2);
+	text-align:center;
+	color:white;
+	padding:25px;
+ }
+ h2{
+	border-style:solid;
+	border-width:2px 2px 2px 10px;
+	padding:10px;
+ }
+ .c1{
+	border-color:tomato;
+ }
+ p{
+	padding:10px;
+ }
+ #p1{
+	color:green;
+	background-color:yellow;
+ }
+
+ </style>
+ </head>
+ <body>
+   <header>
+		<h1>본인이름</h1>
+   </header>
+
+   <nav>
+	<a href = "#s1">[개인정보]</a>&nbsp; &nbsp; <!--띄어쓰기 기능-->
+    <a href = "#s2">[학력사항]</a>&nbsp; &nbsp;
+    <a href = "#s3">[자격사항]</a>&nbsp; &nbsp;
+    <a href = "#s4">[자기소개]</a>&nbsp; &nbsp;
+   </nav>
+
+   <h2 class="c1">개인정보</h2>
+   <img src = "./img/개인정보 사진.jpg" alt="본인사진" width="200px">
+
+   <ul>
+
+   	 <li> 본인성명 </li>
+	 <li> 연락처 </li>
+	 <li> E-mail </li>
+	 <li> 주소 </li>
+	
+   </ul>
+
+   <h2>학력사항</h2>
+   <ul>
+
+   	 <li><img src="./img/개인정보 아이콘.jpg" width=3% height=3%> 대학교 재학 </li>
+	 <li><img src="./img/개인정보 아이콘.jpg" width=3% height=3%> 고등학교 졸업 </li>
+	 <li><img src="./img/개인정보 아이콘.jpg" width=3% height=3%> 중학교 졸업 </li>
+	 <li><img src="./img/개인정보 아이콘.jpg" width=3% height=3%> 초등학교 졸업 </li>
+	
+   </ul>
+
+   <h2 class="c1">자격사항</h2>
+   <ul>
+
+   	 <li> 취득자격증 1 </li>
+	 <li> 취득자격증 2 </li>
+	 <li> 취득자격증 3 </li>
+	
+   </ul>
+
+   <h2>자기소개</h2>
+   <p>
+
+   <a href="#"> swot 분석 </a> <br>
+   <span id="p1">본인 소개를 작성하세요. </span>
+   <!--div(디비전의 약자)은 그줄부터 아래영역 모두 해당-->
+   <!--span은 부분 강조-->
+   </p>
+   <footer>
+   &copy;본인 영문이름 본인 주소
+   </footer>
+
+ </body>
+</html>
