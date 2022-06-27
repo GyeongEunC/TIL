@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="kor">
+ <head>
+  <title>Document</title>
+  <style>
+  	ul{
+		background-color:#ffda89;
+		width:150px;
+		margin:0;
+		padding:0;
+		list-style-type:none;
+	}
+	li a{
+		text-decoration:none;
+		color:#000000;
+		padding:8px;
+		font-weight:bold;
+		display:block;
+	}
+/*
+	li a:hover{
+		background-color:#cd863f;
+		color:white;
+	}
+*/
+	li a.current{
+		background-color:#ff6347;
+		color:white;
+	}
+	li a:hover{
+		background-color:#cd863f;
+		color:white;
+	}
+
+  </style>
+ </head>
+ <body>
+	<h1>수직 내비게이션 바</h1>
+	<ul>
+		<li><a href="http://www.naver.com">네이버</a></li>
+		<li><a class="current" href="http://www.daum.com">다음</a></li>
+		<li><a href="http://www.google.com">구글</a></li>
+		<li><a href="http://www.naver.com">네이버</a></li>
+ </body>
+</html>
