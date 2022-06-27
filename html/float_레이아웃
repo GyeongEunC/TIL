@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="kor">
+ <head>
+  <title>Document</title>
+  <style>
+  	div.page{
+		border:3px solid #ffbebe;
+		overflow:auto;
+	}
+	h2{
+		text-align:center;
+	}
+	header{
+		border:3px solid #800000;
+	}
+	nav{
+		border:3px solid #a00000;
+		float:right;
+		width:150px;
+	}
+	section{
+		border:3px solid #0000aa;
+		margin:0px 170px 0px 0px;
+	}
+	footer{
+		border:3px solid #c0400d;
+		clear:both;
+	}
+  </style>
+ </head>
+ <body>
+	<h1>float 속성을 이용한 레이아웃</h1>
+	<div class="page">
+		
+		<header>
+			<h2>header 영역</h2>
+		</header>
+		<nav>
+			<h2>nav 영역</h2>
+			<p>여기에는 보통 메뉴가 들어갑니다.</p>
+		</nav>
+		<section>
+			<h2>section 영역</h2>
+			<p>여기에는 페이지에 해당하는 내용이 들어갑니다.<br><br>
+			동해물과 백두산이 마르고 닳도록
+			하느님이 보우하사 우리나라 만세
+			무궁화 삼천리 화려 강산
+			대한 사람 대한으로 길이 보전하세<br>
+
+			남산 위에 저 소나무 철갑을 두른 듯
+			바람 서리 불변함은 우리 기상일세
+			무궁화 삼천리 화려 강산
+			대한 사람 대한으로 길이 보전하세<br>
+
+			가을 하늘 공활한데 높고 구름 없이
+			밝은 달은 우리 가슴 일편단심일세
+			무궁화 삼천리 화려 강산
+			대한 사람 대한으로 길이 보전하세<br>
+
+			이 기상과 이 맘으로 충성을 다하여
+			괴로우나 즐거우나 나라 사랑하세
+			무궁화 삼천리 화려 강산
+			대한 사람 대한으로 길이 보전하세<br>
+			</p>
+		</section>
+		<footer>
+			<h2>footer 영역</h2>
+		</footer>
+ </body>
+</html>
