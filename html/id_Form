@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="kor">
+ <head>
+  <title>id form</title>
+ </head>
+ <body>
+  <form>
+  	<fieldset>
+	<legend>로그인</legend>
+  	<p><strong>아이디</strong>
+	<input type="text" name="id" required>
+	이름 : <input type="text" name="st_name" placeholder="홍길동"><br>
+	</p>
+	<!--required는 필수조건, 미 입력시 제출불가
+	value값이 없으면 빈칸으로 생성-->
+
+	<p><strong>비밀번호</strong>
+	<input type="password" name="pw" value="숫자 +특수문자 입력">
+	</p>
+	</fieldset>
+
+	<p><strong>성별</strong>
+	<input type="radio" name="gender" value="M"> 남자
+	<strong>성별</strong>
+	<input type="radio" name="gender" value="F"> 여자
+	</p>
+
+	<p><strong>취미</strong>
+	<input type="checkbox" name="nobby" value="read"> 독서
+	<input type="checkbox" name="nobby" value="movie"> 영화감상
+	<input type="checkbox" name="nobby" value="sport"> 스쿼시
+	<input type="checkbox" name="nobby" value="music"> 음악감상
+	</p>
+
+	<p><strong>지원분야</strong>
+	<select>
+		<option value="it"> IT </option>
+		<option value="programmer"> programmer </option>
+		<option value="disign"> 디자이너 </option>
+		<option value="web"> web </option>
+	</select>
+	</p>
+
+	<p><strong>지원동기</strong>
+	<textarea name="opinion" cols="80" rows="6">
+	</textarea>
+	</p>
+
+	<!--아래 내용은 HTML5(웹표준)에서 추가된 form 태그들.-->
+
+	<p><strong>날짜선택</strong>
+	<input type="week" name="month">
+	</p>
+
+	<p><strong>주문수량</strong>
+	<input type="number" max="30" min="1" step="6" value="1">
+	</p>
+
+	<p><strong>color 선택</strong>
+	<input type="color" name="color">
+	</p>
+
+	<p><strong>전화번호</strong>
+	<input type="tel" name="tel">
+	</p>
+
+	<p><strong>e-mail</strong>
+	<input type="e-mail" name="e-mail">
+	</p>
+
+	<p><strong>감성정도</strong>
+	<input type="range" name="range" max="10" min="0" step="2" value="10">
+	</p>
+
+	<p><strong>제출시간</strong>
+	<input type="time" name="time">
+	</p>
+
+	<p><strong>첨부파일</strong>
+	<input type="file">
+	</p>
+
+	<fieldset>
+	<legend> 개인정보 입력 </legend>
+	지역선택<br>
+	<select name="city" size="3">
+		<option value="seoul"> 서울 </option>
+		<option value="busan"> 부산 </option>
+		<option value="dajen"> 대전 </option>
+		<option value="inchen"> 인천 </option>
+		<option value="jeju"> 제주 </option>
+		<option value="bu"> 부천 </option>
+	</select> <br><br><br>
+
+	<select name="city1">
+		<optgroup label="서울">
+			<option value="song"> 송파구 </option>
+			<option value="kang"> 강서구 </option>
+		<optgroup label="부산">
+			<option value="ha"> 해운대 </option>
+			<option value="young"> 영도 </option>
+	</select>
+	</fieldset>
+
+	<fieldset>
+	<!--list 이름과 datalist id의 이름은 같아야 함.-->
+		<legend> 자주 사용하는 페이지</legend> <br>
+		<input type="text" name="browser" list="browser">
+		<datalist id="browser">
+			<option value="크롬">Google</option>
+			<option value="사파리">Apple</option>
+			<option value="엣지">MicroSoft</option>
+	</fieldset>
+
+	<input type="submit" value="지원서 제출">
+	<input type="reset" value="다시 작성">
+
+  </form>
+
+ </body>
+</html>
