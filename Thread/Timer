@@ -1,0 +1,52 @@
+package ex2;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class ThreadTimeEx extends JFrame {
+	public ThreadTimeEx() {
+		Container c = getContentPane();
+		c.setLayout(new FlowLayout());
+		c.setBackground(Color.pink);
+		
+		JLabel timerLabel = new JLabel();
+		timerLabel.setFont(new Font("Gothic", Font.ITALIC, 80)); 
+		c.add(timerLabel);
+		
+		timerThread th = new timerThread(timerLabel);		// 타이머 스레드 객체 생성
+		th.start();
+		
+		this.setTitle("Timer");
+		this.setSize(300, 170);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
+		
+	}
+	
+	class timerThread extends Thread {
+		private JLabel timerLabel;
+		public timerThread(JLabel timerLabel) {
+			this.timerLabel = timerLabel;		// 타이머 카운트를 출력할 레이블
+		}
+		@Override
+		public void run() {
+			int n = 0;
+			while (true) {
+				timerLabel.setText(Integer.toString(n));
+				n++;
+				
+				try {
+					Thread.sleep(1000);
+				}
+				catch (InterruptedException e) {
+					return;
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) {
+		new ThreadTimeEx();
+	}
+}
