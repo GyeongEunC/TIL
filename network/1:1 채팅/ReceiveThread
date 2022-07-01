@@ -1,0 +1,26 @@
+package net;
+
+import java.io.*;
+import java.net.*;
+
+public class ReceiveThread extends Thread {
+	private Socket socket;
+	
+	public ReceiveThread(Socket socket) {
+		this.socket = socket;
+	}
+	
+	@Override
+	public void run() {
+		try {
+			DataInputStream inputstream = new DataInputStream(socket.getInputStream());
+			String receiveString;
+			while(true) {
+				receiveString = inputstream.readUTF();
+				System.out.println("you : " + receiveString);
+			}
+		} catch (IOException e) {
+			System.out.println("수신 실패");
+		}
+	}
+}
