@@ -1,0 +1,32 @@
+package net;
+
+import java.io.*;
+import java.net.*;
+
+public class C_ReceiverThread extends Thread {
+	private Socket socket;
+
+	public C_ReceiverThread(Socket socket) {
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		DataInputStream inputStream;
+		try {
+			inputStream = new DataInputStream(socket.getInputStream());
+			String receiveString;
+			while (true) {
+				receiveString = inputStream.readUTF();
+				if (receiveString == null)
+					System.out.println("connection close");
+				else
+					System.out.println("-");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
+		}
+	}
+}
