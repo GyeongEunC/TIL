@@ -1,0 +1,30 @@
+package net;
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class SendThread extends Thread {
+	private Socket socket;
+	private Scanner sc = new Scanner(System.in);
+
+	public SendThread(Socket socket) {
+		this.socket = socket;
+	}
+
+	@Override
+	public void run() {
+		DataOutputStream sendWriter;
+		try {
+			sendWriter = new DataOutputStream(socket.getOutputStream());
+			String sendString;
+			while (true) {
+				sendString = sc.nextLine();
+				sendWriter.writeUTF(sendString);
+				sendWriter.flush();
+			}
+		} catch (IOException e) {
+
+		}
+	}
+}
