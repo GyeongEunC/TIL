@@ -1,0 +1,20 @@
+package net;
+
+import java.io.*;
+import java.net.*;
+
+public class SocketClient {
+
+	public static void main(String[] args) {
+		try {
+			Socket socket = new Socket("localhost", 9003);
+			System.out.println("server connection");
+			C_ReceiverThread receiveThread = new C_ReceiverThread(socket);
+			receiveThread.start();
+			C_SendThread sendThread = new C_SendThread(socket);
+			sendThread.start();
+		} catch (UnknownHostException e) {
+		} catch (IOException e) {
+		}
+	}
+}
