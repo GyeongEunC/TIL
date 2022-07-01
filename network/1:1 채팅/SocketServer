@@ -1,0 +1,24 @@
+package net;
+
+import java.net.*;
+import java.io.*;
+
+public class SocketServer {
+	public static void main(String[] args) {
+		int port = 9003;
+		try {
+			ServerSocket ss = new ServerSocket(port);
+			while(true) {
+				Socket s = ss.accept();
+				System.out.println("ip : " + s.getInetAddress() + " is connection o");
+				ReceiveThread reThread = new ReceiveThread(s);
+				reThread.start();
+				SendThread sendThread = new SendThread(s);
+				sendThread.start();
+				
+			}
+		} catch (Exception e) {
+			System.out.println("server x");
+		}
+	}
+}
