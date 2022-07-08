@@ -1,0 +1,54 @@
+package com.Ex.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.Ex.controller.action.Action;
+
+/**
+ * Servlet implementation class BoardServlet
+ */
+@WebServlet("/BoardServlet")
+public class BoardServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BoardServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String command = request.getParameter("command");
+		System.out.println("BoardServlet에서 호출 : " + command);
+		
+		ActionFactory af = ActionFactory.getInstance();
+		Action action = af.getAction(command);
+		if(action != null) {
+			action.execute(request, response);
+		}
+		/*
+		 * getAction()은 요청 파라미터(command)에 맞는 Action 객체를 반환하지만
+		 * action.execute(request, response); 문장을 수행할 때 예외가 발생할 수 있음
+		 * 그렇기 때문에 null이 아닐 경우면 action.execute(request, response); 를 실행
+		 */
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		doGet(request, response);
+	}
+
+}
